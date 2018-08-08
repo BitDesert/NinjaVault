@@ -90,7 +90,6 @@ export class ConfigureAppComponent implements OnInit {
     { name: 'Best Option Available', value: 'best' },
     { name: 'Client Side - WebGL (Chrome/Firefox)', value: 'clientWebGL' },
     { name: 'Client Side - CPU', value: 'clientCPU' },
-    { name: 'Server - NanoVault Server', value: 'server' },
   ];
   selectedPoWOption = this.powOptions[0].value;
 
