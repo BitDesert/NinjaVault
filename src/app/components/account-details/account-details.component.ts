@@ -11,6 +11,7 @@ import {UtilService} from "../../services/util.service";
 import * as QRCode from 'qrcode';
 import BigNumber from "bignumber.js";
 import {RepresentativeService} from "../../services/representative.service";
+import {MyNanoNinjaService} from "../../services/mynanoninja.service";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Component({
@@ -54,6 +55,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     private api: ApiService,
     private price: PriceService,
     private repService: RepresentativeService,
+    private ninjaService: MyNanoNinjaService,
     private notifications: NotificationService,
     private wallet: WalletService,
     private util: UtilService,
@@ -118,6 +120,16 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
     const qrCode = await QRCode.toDataURL(`${this.accountID}`);
     this.qrCodeImage = qrCode;
+
+    // My Nano Ninja
+    const ninjaAccount = await this.ninjaService.account(this.account.representative);
+    if (!this.repLabel) {
+      this.repLabel = ninjaAccount ? ninjaAccount.alias : null;
+    }
+
+    if (ninjaAccount.score < 80) {
+      this.notifications.sendWarning(`The representative has a low score. Change it now on the left!`, { identifier: 'changerep-lowscore', length: 5000 });
+    }
   }
 
   ngOnDestroy() {

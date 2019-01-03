@@ -40,6 +40,7 @@ import { ImportAddressBookComponent } from './components/import-address-book/imp
 import { CurrencySymbolPipe } from './pipes/currency-symbol.pipe';
 import { RepresentativesComponent } from './components/representatives/representatives.component';
 import {RepresentativeService} from "./services/representative.service";
+import {MyNanoNinjaService} from "./services/mynanoninja.service";
 import {ManageRepresentativesComponent} from "./components/manage-representatives/manage-representatives.component";
 import {NodeService} from "./services/node.service";
 import {LedgerService} from "./ledger.service";
@@ -92,6 +93,7 @@ import {LedgerService} from "./ledger.service";
     PriceService,
     PowService,
     RepresentativeService,
+    MyNanoNinjaService,
     NodeService,
     LedgerService,
   ],

@@ -4,6 +4,7 @@ import {ApiService} from "../../services/api.service";
 import BigNumber from "bignumber.js";
 import {UtilService} from "../../services/util.service";
 import {RepresentativeService} from "../../services/representative.service";
+import {MyNanoNinjaService} from "../../services/mynanoninja.service";
 import {AppSettingsService} from "../../services/app-settings.service";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {NotificationService} from "../../services/notification.service";
@@ -31,6 +32,8 @@ export class RepresentativesComponent implements OnInit {
   selectedAccounts = [];
   fullAccounts = [];
 
+  verifiedReps = [];
+
   constructor(
     public wallet: WalletService,
     private api: ApiService,
@@ -38,6 +41,7 @@ export class RepresentativesComponent implements OnInit {
     private nanoBlock: NanoBlockService,
     private util: UtilService,
     private representativeService: RepresentativeService,
+    private ninjaService: MyNanoNinjaService,
     public settings: AppSettingsService) { }
 
   async ngOnInit() {
@@ -58,6 +62,19 @@ export class RepresentativesComponent implements OnInit {
     // Get full info about each representative
     const representativesDetails = await this.getRepresentativesDetails(uniqueRepresentatives);
 
+    // My Nano Ninja
+    const verifiedReps = await this.ninjaService.verified();
+
+    for (const representative of verifiedReps) {
+
+      const temprep = {
+        id: representative.account,
+        name: representative.alias
+      };
+
+      this.verifiedReps.push(temprep);
+    }
+
     // Build up the overview object for each representative
     const totalSupply = new BigNumber(133248289);
     let representativesOverview = [];
@@ -71,14 +88,14 @@ export class RepresentativesComponent implements OnInit {
 
       // Determine the status based on some factors
       let status = 'none';
-      if (knownRep && knownRep.trusted) {
-        status = 'trusted'; // In our list and marked as trusted
-      } else if (knownRep && knownRep.warn) {
-        status = 'alert'; // In our list and marked for avoidance
-      } else if (percent.gte(10)) {
+      if (percent.gte(10)) {
         status = 'alert'; // Has extremely high voting weight
       } else if (percent.gte(1)) {
         status = 'warn'; // Has high voting weight
+      } else if (knownRep && knownRep.trusted) {
+        status = 'trusted'; // In our list and marked as trusted
+      } else if (knownRep && knownRep.warn) {
+        status = 'alert'; // In our list and marked for avoidance
       } else if (knownRep) {
         status = 'known'; // In our list
       }
@@ -217,7 +234,7 @@ export class RepresentativesComponent implements OnInit {
   searchRepresentatives() {
     this.showRepresentatives = true;
     const search = this.toRepresentativeID || '';
-    const representatives = this.representativeService.getSortedRepresentatives();
+    const representatives = this.verifiedReps;
 
     const matches = representatives
       .filter(a => a.name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
