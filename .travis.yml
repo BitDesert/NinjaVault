@@ -12,9 +12,6 @@ cache:
   directories:
     - node_modules
 
-install:
-  - npm install -g @angular/cli
-
 script:
   - ng build --prod --base-href https://bitdesert.github.io/nanovault/
 deploy:
