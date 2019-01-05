@@ -13,11 +13,10 @@ cache:
     - node_modules
 
 script:
-  - ng build --prod --base-href https://bitdesert.github.io/NinjaVault/
+  - ng build --prod
+
 deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: dist/
+  provider: script
+  script: npx angular-cli-ghpages --cname=vault-gh.mynano.ninja
   on:
     branch: master
