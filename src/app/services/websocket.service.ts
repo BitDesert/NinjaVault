@@ -53,13 +53,9 @@ export class WebsocketService {
       setTimeout(() => this.attemptReconnect(), this.reconnectTimeout);
     });
 
-    ws.on('message', (msg) => {
+    ws.on('newTransaction', (block) => {
       try {
-        const newEvent = JSON.parse(msg);
-
-        if (newEvent.event === 'newTransaction') {
-          this.newTransactions$.next(newEvent.data);
-        }
+          this.newTransactions$.next(block);
       } catch (err) {
         console.log(`Error parsing message`, err);
       }
