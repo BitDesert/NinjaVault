@@ -7,6 +7,7 @@ import {PowService} from "../../services/pow.service";
 import {WorkPoolService} from "../../services/work-pool.service";
 import {AddressBookService} from "../../services/address-book.service";
 import {ApiService} from "../../services/api.service";
+import {WebsocketService} from "../../services/websocket.service";
 import {LedgerService, LedgerStatus} from "../../ledger.service";
 import BigNumber from "bignumber.js";
 
@@ -30,6 +31,12 @@ export class ConfigureAppComponent implements OnInit {
     { name: 'None', value: 'none' },
   ];
   selectedStorage = this.storageOptions[0].value;
+
+  backendOptions = [
+    { name: 'My Nano Ninja', value: 'vault-api.mynano.ninja' },
+    { name: 'NanoVault', value: 'nanovault.io' },
+  ];
+  selectedBackend = this.backendOptions[0].value;
 
   currencies = [
     { name: 'None', value: '' },
@@ -106,6 +113,7 @@ export class ConfigureAppComponent implements OnInit {
     private addressBook: AddressBookService,
     private pow: PowService,
     private api: ApiService,
+    private websocket: WebsocketService,
     private ledgerService: LedgerService,
     private workPool: WorkPoolService,
     private price: PriceService) { }
@@ -116,6 +124,9 @@ export class ConfigureAppComponent implements OnInit {
 
   loadFromSettings() {
     const settings = this.appSettings.settings;
+
+    const matchingBackend = this.backendOptions.find(d => d.value === settings.backend);
+    this.selectedBackend = matchingBackend.value || this.backendOptions[0].value;
 
     const matchingCurrency = this.currencies.find(d => d.value === settings.displayCurrency);
     this.selectedCurrency = matchingCurrency.value || this.currencies[0].value;
@@ -134,7 +145,19 @@ export class ConfigureAppComponent implements OnInit {
 
     const matchingPowOption = this.powOptions.find(d => d.value === settings.powSource);
     this.selectedPoWOption = matchingPowOption ? matchingPowOption.value : this.powOptions[0].value;
+  }
+
+  async updateBackend() {
+    const newBackend = this.selectedBackend;
+    const reloadBackend = this.appSettings.settings.backend !== newBackend;
+    this.appSettings.setAppSetting('backend', this.selectedBackend);
+    this.notifications.sendSuccess(`App backend successfully updated!`);
+
+    if (reloadBackend) {
+      this.api.reloadBackend();
+      this.websocket.reconnect();
     }
+  }
 
   async updateDisplaySettings() {
     const newCurrency = this.selectedCurrency;

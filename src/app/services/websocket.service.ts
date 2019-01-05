@@ -25,7 +25,10 @@ export class WebsocketService {
   connect() {
     if (this.connected && this.socket) return;
     delete this.socket; // Maybe this will erase old connections
-    const ws = io('wss://vault-api.mynano.ninja');
+
+    this.appSettings.loadAppSettings();
+
+    const ws = io('wss://' + this.appSettings.getAppSetting('backend'));
     this.socket = ws;
 
     ws.on('connect', () => {
@@ -50,7 +53,11 @@ export class WebsocketService {
       console.log(`Socket disconnected`);
 
       // Start attempting to recconect
-      setTimeout(() => this.attemptReconnect(), this.reconnectTimeout);
+      setTimeout(() => this.reconnect(), this.reconnectTimeout);
+    });
+
+    ws.on('error', (error) => {
+      console.error(error);
     });
 
     ws.on('newTransaction', (block) => {
@@ -63,7 +70,18 @@ export class WebsocketService {
 
   }
 
-  attemptReconnect() {
+  disconnect() {
+    if (this.connected) {
+      this.connected = false;
+      this.socket.disconnect();
+      delete this.socket; // Maybe this will erase old connections
+    }
+  }
+
+  reconnect() {
+    if (this.connected) {
+      this.disconnect();
+    }
     this.connect();
     if (this.reconnectTimeout < 30 * 1000) {
       this.reconnectTimeout += 5 * 1000; // Slowly increase the timeout up to 30 seconds

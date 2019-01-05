@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {NodeService} from "./node.service";
+import {AppSettingsService} from "./app-settings.service";
 
 @Injectable()
 export class ApiService {
 
-  rpcUrl = `https://vault-api.mynano.ninja/api/node-api`;
-  // rpcUrl = `http://localhost:9950/api/node-api`;
+  rpcUrl = null;
 
-  constructor(private http: HttpClient, private node: NodeService) { }
+  constructor(private http: HttpClient, private node: NodeService, private appSettings: AppSettingsService) { }
 
   private async request(action, data): Promise<any> {
+
+    // get RPC url only on first call
+    if (!this.rpcUrl) {
+      this.rpcUrl = 'https://' + this.appSettings.getAppSetting('backend') + '/api/node-api';
+    }
+
     data.action = action;
     return await this.http.post(this.rpcUrl, data).toPromise()
       .then(res => {
@@ -23,6 +29,10 @@ export class ApiService {
         }
         throw err;
       });
+  }
+
+  reloadBackend() {
+    this.rpcUrl = 'https://' + this.appSettings.getAppSetting('backend') + '/api/node-api';
   }
 
   async accountsBalances(accounts: string[]): Promise<{balances: any }> {

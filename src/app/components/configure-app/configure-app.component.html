@@ -4,6 +4,35 @@
 
     <div class="uk-card uk-card-default uk-margin">
       <div class="uk-card-header">
+        <h3 class="uk-card-title">Backend</h3>
+      </div>
+      <div class="uk-card-body">
+        <div uk-grid>
+
+          <div class="uk-width-1-1">
+            <div class="uk-form-horizontal">
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="form-horizontal-select">Server <span uk-icon="icon: info;" uk-tooltip title="Change your backend server."></span></label>
+                <div class="uk-form-controls">
+                  <select class="uk-select" [(ngModel)]="selectedBackend" id="form-horizontal-select">
+                    <option *ngFor="let backend of backendOptions" [value]="backend.value">{{ backend.name }}</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="uk-card-footer uk-text-right">
+        <button (click)="updateBackend()" class="uk-button uk-button-secondary">Update Backend</button>
+      </div>
+    </div>
+
+    <div class="uk-card uk-card-default uk-margin">
+      <div class="uk-card-header">
         <h3 class="uk-card-title">Display Settings</h3>
       </div>
       <div class="uk-card-body">
