@@ -18,5 +18,6 @@ script:
 deploy:
   provider: script
   script: npx angular-cli-ghpages --cname=vault-gh.mynano.ninja
+  skip_cleanup: true
   on:
     branch: master
