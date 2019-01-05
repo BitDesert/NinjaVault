@@ -17,7 +17,7 @@ script:
 
 deploy:
   provider: script
-  script: npx angular-cli-ghpages --cname=vault-gh.mynano.ninja --no-silent --name="BitDesert" --email=admin@mynano.ninja
+  script: npx angular-cli-ghpages --cname=vault-gh.mynano.ninja --no-silent --name="BitDesert" --email=admin@mynano.ninja --repo=https://GH_TOKEN@github.com/BitDesert/NinjaVault
   skip_cleanup: true
   on:
     branch: master
