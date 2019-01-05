@@ -40,6 +40,7 @@
     "@angular/router": "^5.0.0",
     "@ledgerhq/hw-transport-u2f": "^4.7.3",
     "@types/crypto-js": "^3.1.38",
+    "@types/socket.io-client": "^1.4.32",
     "babel-polyfill": "^6.26.0",
     "bignumber.js": "^5.0.0",
     "bip39": "^2.5.0",
@@ -52,6 +53,7 @@
     "ngx-clipboard": "^9.1.2",
     "qrcode": "^1.2.0",
     "rxjs": "^5.5.2",
+    "socket.io-client": "^2.2.0",
     "tweetnacl": "^1.0.0",
     "zone.js": "^0.8.14"
   },
