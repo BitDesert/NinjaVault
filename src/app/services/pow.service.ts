@@ -80,6 +80,13 @@ export class PowService {
 
     this.webGLTested = true;
 
+    // MacOS has issues with calculating work on GPU
+    const isMacLike = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i) ? true : false;
+    if (isMacLike) {
+      this.webGLAvailable = false;
+      return false;
+    }
+
     try {
       const canvas = document.createElement( 'canvas' );
       const webGL = !! window['WebGLRenderingContext'] && (canvas.getContext( 'webgl' ) || canvas.getContext( 'experimental-webgl' ));
