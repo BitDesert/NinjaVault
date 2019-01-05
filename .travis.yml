@@ -13,7 +13,7 @@ cache:
     - node_modules
 
 script:
-  - ng build --prod --base-href https://bitdesert.github.io/nanovault/
+  - ng build --prod --base-href https://bitdesert.github.io/NinjaVault/
 deploy:
   provider: pages
   skip_cleanup: true

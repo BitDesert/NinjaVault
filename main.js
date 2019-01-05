@@ -126,11 +126,11 @@ function getApplicationMenu() {
       submenu: [
         {
           label: 'View GitHub',
-          click () { loadExternal('https://github.com/cronoh/nanovault') }
+          click () { loadExternal('https://github.com/BitDesert/nanovault') }
         },
         {
           label: 'Submit Issue',
-          click () { loadExternal('https://github.com/cronoh/nanovault/issues/new') }
+          click () { loadExternal('https://github.com/BitDesert/nanovault/issues/new') }
         },
         {type: 'separator'},
         {
@@ -139,7 +139,7 @@ function getApplicationMenu() {
         },
         {
           label: 'View Latest Updates',
-          click () { loadExternal('https://github.com/cronoh/nanovault/releases') }
+          click () { loadExternal('https://github.com/BitDesert/nanovault/releases') }
         },
         {type: 'separator'},
         {
@@ -154,7 +154,7 @@ function getApplicationMenu() {
 
   if (process.platform === 'darwin') {
     template.unshift({
-      label: 'NanoVault',
+      label: 'NinjaVault',
       submenu: [
         {role: 'about'},
         {type: 'separator'},

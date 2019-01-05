@@ -1,5 +1,5 @@
 {
-  "name": "NanoVault",
+  "name": "NinjaVault",
   "version": "1.0.4",
   "license": "MIT",
   "description": "Wallet for interacting with Nano",
@@ -82,9 +82,9 @@
     "uikit": "^3.0.0-beta.40"
   },
   "build": {
-    "appId": "com.electron.nanovault",
+    "appId": "com.electron.NinjaVault",
     "buildVersion": "1.0.4",
-    "productName": "NanoVault",
+    "productName": "NinjaVault",
     "copyright": "Copyright © 2018 Andrew Steele",
     "directories": {
       "output": "dist-desktop",
@@ -110,7 +110,7 @@
       {
         "provider": "github",
         "owner": "cronoh",
-        "repo": "nanovault"
+        "repo": "NinjaVault"
       }
     ],
     "protocols": {
