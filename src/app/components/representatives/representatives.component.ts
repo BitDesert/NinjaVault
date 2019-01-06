@@ -63,7 +63,7 @@ export class RepresentativesComponent implements OnInit {
     const representativesDetails = await this.getRepresentativesDetails(uniqueRepresentatives);
 
     // My Nano Ninja
-    const verifiedReps = await this.ninjaService.verified();
+    const verifiedReps = await this.ninjaService.verifiedRandomized();
 
     for (const representative of verifiedReps) {
 

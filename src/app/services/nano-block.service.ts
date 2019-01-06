@@ -8,20 +8,20 @@ import {NotificationService} from "./notification.service";
 import {AppSettingsService} from "./app-settings.service";
 import {WalletService} from "./wallet.service";
 import {LedgerService} from "../ledger.service";
+import {MyNanoNinjaService} from "./mynanoninja.service";
 const nacl = window['nacl'];
 
 const STATE_BLOCK_PREAMBLE = '0000000000000000000000000000000000000000000000000000000000000006';
 
 @Injectable()
 export class NanoBlockService {
-  representativeAccount = 'xrb_3rw4un6ys57hrb39sy1qx8qy5wukst1iiponztrz9qiz6qqa55kxzx4491or'; // NanoVault Representative
-
   constructor(
     private api: ApiService,
     private util: UtilService,
     private workPool: WorkPoolService,
     private notifications: NotificationService,
     private ledgerService: LedgerService,
+    private ninjaService: MyNanoNinjaService,
     public settings: AppSettingsService) { }
 
   async generateChange(walletAccount, representativeAccount, ledger = false) {
@@ -93,7 +93,7 @@ export class NanoBlockService {
     while (remainingPadded.length < 32) remainingPadded = '0' + remainingPadded; // Left pad with 0's
 
     let blockData;
-    const representative = fromAccount.representative || this.representativeAccount;
+    const representative = fromAccount.representative || await this.ninjaService.getRandomRep();
 
     let signature = null;
     if (ledger) {
@@ -151,7 +151,7 @@ export class NanoBlockService {
     const openEquiv = !toAcct || !toAcct.frontier;
 
     const previousBlock = toAcct.frontier || "0000000000000000000000000000000000000000000000000000000000000000";
-    const representative = toAcct.representative || this.representativeAccount;
+    const representative = toAcct.representative || await this.ninjaService.getRandomRep();
 
     const srcBlockInfo = await this.api.blocksInfo([sourceBlock]);
     const srcAmount = new BigNumber(srcBlockInfo.blocks[sourceBlock].amount);

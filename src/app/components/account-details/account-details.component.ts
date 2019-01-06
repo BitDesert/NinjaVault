@@ -48,6 +48,8 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   routerSub = null;
   priceSub = null;
 
+  verifiedReps = [];
+
   constructor(
     private router: ActivatedRoute,
     private route: Router,
@@ -84,8 +86,10 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     this.walletAccount = this.wallet.getWalletAccount(this.accountID);
     this.account = await this.api.accountInfo(this.accountID);
 
+    /*
     const knownRepresentative = this.repService.getRepresentative(this.account.representative);
     this.repLabel = knownRepresentative ? knownRepresentative.name : null;
+    */
 
     // If there is a pending balance, or the account is not opened yet, load pending transactions
     if ((!this.account.error && this.account.pending > 0) || this.account.error) {
@@ -128,7 +132,23 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     }
 
     if (ninjaAccount.score < 80) {
-      this.notifications.sendWarning(`The representative has a low score. Change it now on the left!`, { identifier: 'changerep-lowscore', length: 5000 });
+      this.notifications.sendWarning(
+        `The representative has a low score. Change it now on the left!`,
+        { identifier: 'changerep-lowscore', length: 5000 }
+      );
+    }
+
+    // My Nano Ninja
+    const verifiedReps = await this.ninjaService.verifiedRandomized();
+
+    for (const representative of verifiedReps) {
+
+      const temprep = {
+        id: representative.account,
+        name: representative.alias
+      };
+
+      this.verifiedReps.push(temprep);
     }
   }
 
@@ -257,7 +277,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   searchRepresentatives() {
     this.showRepresentatives = true;
     const search = this.representativeModel || '';
-    const representatives = this.repService.getSortedRepresentatives();
+    const representatives = this.verifiedReps;
 
     const matches = representatives
       .filter(a => a.name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
