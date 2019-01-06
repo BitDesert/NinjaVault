@@ -93,7 +93,7 @@ export class NanoBlockService {
     while (remainingPadded.length < 32) remainingPadded = '0' + remainingPadded; // Left pad with 0's
 
     let blockData;
-    const representative = fromAccount.representative || await this.ninjaService.getRandomRep();
+    const representative = fromAccount.representative || await this.ninjaService.getSuggestedRep();
 
     let signature = null;
     if (ledger) {
@@ -151,7 +151,7 @@ export class NanoBlockService {
     const openEquiv = !toAcct || !toAcct.frontier;
 
     const previousBlock = toAcct.frontier || "0000000000000000000000000000000000000000000000000000000000000000";
-    const representative = toAcct.representative || await this.ninjaService.getRandomRep();
+    const representative = toAcct.representative || await this.ninjaService.getSuggestedRep();
 
     const srcBlockInfo = await this.api.blocksInfo([sourceBlock]);
     const srcAmount = new BigNumber(srcBlockInfo.blocks[sourceBlock].amount);

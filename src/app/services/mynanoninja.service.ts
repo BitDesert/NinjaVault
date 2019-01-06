@@ -77,7 +77,7 @@ export class MyNanoNinjaService {
     return this.randomizeByScore(replist);
   }
 
-  async getRandomRep(): Promise<any> {
+  async getSuggestedRep(): Promise<any> {
     const replist = await this.verifiedRandomized();
     return replist[0].account;
   }

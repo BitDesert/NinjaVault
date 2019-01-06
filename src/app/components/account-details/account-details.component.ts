@@ -86,11 +86,6 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     this.walletAccount = this.wallet.getWalletAccount(this.accountID);
     this.account = await this.api.accountInfo(this.accountID);
 
-    /*
-    const knownRepresentative = this.repService.getRepresentative(this.account.representative);
-    this.repLabel = knownRepresentative ? knownRepresentative.name : null;
-    */
-
     // If there is a pending balance, or the account is not opened yet, load pending transactions
     if ((!this.account.error && this.account.pending > 0) || this.account.error) {
       const pending = await this.api.pending(this.accountID, 25);
@@ -241,8 +236,37 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
     const accountInfo = await this.api.accountInfo(this.accountID);
     this.account = accountInfo;
-    const newRep = this.repService.getRepresentative(repAccount);
-    this.repLabel = newRep ? newRep.name : '';
+    const newRep = await this.ninjaService.getAccount(repAccount);
+    this.repLabel = newRep ? newRep.alias : '';
+
+    this.notifications.sendSuccess(`Successfully changed representative`);
+  }
+
+  async changeSuggestedRepresentative() {
+    if (this.wallet.walletIsLocked()) return this.notifications.sendWarning(`Wallet must be unlocked`);
+    if (!this.walletAccount) return;
+
+    const repAccount = await this.ninjaService.getSuggestedRep();
+
+    try {
+      const changed = await this.nanoBlock.generateChange(this.walletAccount, repAccount, this.wallet.isLedgerWallet());
+      if (!changed) {
+        this.notifications.sendError(`Error changing representative, please try again`);
+        return;
+      }
+    } catch (err) {
+      this.notifications.sendError(err.message);
+      return;
+    }
+
+    // Reload some states, we are successful
+    this.representativeModel = '';
+    this.showEditRepresentative = false;
+
+    const accountInfo = await this.api.accountInfo(this.accountID);
+    this.account = accountInfo;
+    const newRep = await this.ninjaService.getAccount(repAccount);
+    this.repLabel = newRep ? newRep.alias : '';
 
     this.notifications.sendSuccess(`Successfully changed representative`);
   }
@@ -293,13 +317,13 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     this.validateRepresentative();
   }
 
-  validateRepresentative() {
+  async validateRepresentative() {
     setTimeout(() => this.showRepresentatives = false, 400);
     this.representativeModel = this.representativeModel.replace(/ /g, '');
-    const rep = this.repService.getRepresentative(this.representativeModel);
+    const rep = await this.ninjaService.getAccount(this.representativeModel);
 
     if (rep) {
-      this.representativeListMatch = rep.name;
+      this.representativeListMatch = rep.alias;
     } else {
       this.representativeListMatch = '';
     }
