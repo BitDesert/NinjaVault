@@ -1,4 +1,5 @@
 # NinjaVault
+[![Build Status](https://travis-ci.org/BitDesert/NinjaVault.svg?branch=master)](https://travis-ci.org/BitDesert/NinjaVault)
 Based on [NanoVault by Cronoh](https://github.com/cronoh/nanovault)
 
 NanoVault is a fully client-side signing wallet for sending and receiving [Nano](https://github.com/nanocurrency/raiblocks) 
