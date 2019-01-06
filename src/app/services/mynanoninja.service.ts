@@ -21,10 +21,12 @@ export class MyNanoNinjaService {
         return res;
       })
       .catch(err => {
-        if (err.status === 500 || err.status === 0) {
+        console.error(err);
+
+        if (err.status === 500 || err.status === 502 || err.status === 0) {
           this.setOffline(); // Hard error, node is offline
         }
-        throw err;
+        return;
       });
   }
 

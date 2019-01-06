@@ -86,8 +86,6 @@ export class RepresentativesComponent implements OnInit {
       const nanoWeight = this.util.nano.rawToMnano(representative.votingweight || 0);
       const percent = nanoWeight.div(totalSupply).times(100);
 
-      console.log(percent.toString());
-
       // Determine the status based on some factors
       let status = 'none';
       if (percent.gte(10)) {
