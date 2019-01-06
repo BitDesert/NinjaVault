@@ -122,7 +122,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     this.qrCodeImage = qrCode;
 
     // My Nano Ninja
-    const ninjaAccount = await this.ninjaService.account(this.account.representative);
+    const ninjaAccount = await this.ninjaService.getAccount(this.account.representative);
     if (!this.repLabel) {
       this.repLabel = ninjaAccount ? ninjaAccount.alias : null;
     }

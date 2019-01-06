@@ -45,7 +45,7 @@ export class MyNanoNinjaService {
     return await this.request('accounts/verified');
   }
 
-  async account(account: string): Promise<any> {
+  async getAccount(account: string): Promise<any> {
     return await this.request('accounts/' + account);
   }
 

@@ -81,16 +81,22 @@ export class RepresentativesComponent implements OnInit {
 
     for (const representative of representativesDetails) {
       const repOnline = onlineReps.indexOf(representative.account) !== -1;
-      const knownRep = this.representativeService.getRepresentative(representative.account);
+      const knownRep = await this.ninjaService.getAccount(representative.account);
 
-      const nanoWeight = this.util.nano.rawToMnano(representative.weight || 0);
+      const nanoWeight = this.util.nano.rawToMnano(representative.votingweight || 0);
       const percent = nanoWeight.div(totalSupply).times(100);
+
+      console.log(percent.toString());
 
       // Determine the status based on some factors
       let status = 'none';
       if (percent.gte(10)) {
         status = 'alert'; // Has extremely high voting weight
       } else if (percent.gte(1)) {
+        status = 'warn'; // Has high voting weight
+      } else if (knownRep && knownRep.score < 80) {
+        status = 'alert'; // Has extremely high voting weight
+      } else if (knownRep && knownRep.score < 90) {
         status = 'warn'; // Has high voting weight
       } else if (knownRep && knownRep.trusted) {
         status = 'trusted'; // In our list and marked as trusted
@@ -106,7 +112,7 @@ export class RepresentativesComponent implements OnInit {
         delegatedWeight: representative.delegatedWeight,
         percent: percent,
         status: status,
-        label: knownRep ? knownRep.name : null,
+        label: knownRep ? knownRep.alias : null,
         online: repOnline,
         accounts: representative.accounts,
       };
