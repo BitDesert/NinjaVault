@@ -128,7 +128,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
     if (ninjaAccount.score < 80) {
       this.notifications.sendWarning(
-        `The representative has a low score. Change it now on the left!`,
+        `The representative has a low score. Please change it now!`,
         { identifier: 'changerep-lowscore', length: 5000 }
       );
     }
