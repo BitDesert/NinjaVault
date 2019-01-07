@@ -49,6 +49,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   priceSub = null;
 
   verifiedReps = [];
+  shouldChangeRep = false;
 
   constructor(
     private router: ActivatedRoute,
@@ -131,6 +132,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
         `The representative has a low score. Please change it now!`,
         { identifier: 'changerep-lowscore', length: 5000 }
       );
+      this.shouldChangeRep = true;
     }
 
     // My Nano Ninja
@@ -262,6 +264,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     // Reload some states, we are successful
     this.representativeModel = '';
     this.showEditRepresentative = false;
+    this.shouldChangeRep = false;
 
     const accountInfo = await this.api.accountInfo(this.accountID);
     this.account = accountInfo;
