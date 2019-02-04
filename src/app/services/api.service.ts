@@ -18,10 +18,7 @@ export class ApiService {
     }
 
     data.action = action;
-    let apiUrl = this.appSettings.settings.serverAPI || this.rpcUrl;
-    if (this.appSettings.settings.serverNode) {
-      apiUrl += `?node=${this.appSettings.settings.serverNode}`;
-    }
+    let apiUrl = this.rpcUrl;
     return await this.http.post(apiUrl, data).toPromise()
       .then(res => {
         this.node.setOnline();
