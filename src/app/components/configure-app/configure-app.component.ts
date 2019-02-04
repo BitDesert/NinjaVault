@@ -7,7 +7,6 @@ import {PowService} from "../../services/pow.service";
 import {WorkPoolService} from "../../services/work-pool.service";
 import {AddressBookService} from "../../services/address-book.service";
 import {ApiService} from "../../services/api.service";
-import {WebsocketService} from "../../services/websocket.service";
 import {LedgerService, LedgerStatus} from "../../services/ledger.service";
 import BigNumber from "bignumber.js";
 import {WebsocketService} from "../../services/websocket.service";
@@ -114,7 +113,6 @@ export class ConfigureAppComponent implements OnInit {
     private addressBook: AddressBookService,
     private pow: PowService,
     private api: ApiService,
-    private websocket: WebsocketService,
     private ledgerService: LedgerService,
     private websocket: WebsocketService,
     private workPool: WorkPoolService,
