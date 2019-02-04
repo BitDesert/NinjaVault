@@ -34,7 +34,6 @@ export class ConfigureAppComponent implements OnInit {
 
   backendOptions = [
     { name: 'My Nano Ninja', value: 'vault-api.mynano.ninja' },
-    { name: 'NOS Cash', value: 'token.nosnode.net'},
     { name: 'NanoVault', value: 'nanovault.io' },
   ];
   selectedBackend = this.backendOptions[0].value;
