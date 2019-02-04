@@ -43,7 +43,8 @@ import {RepresentativeService} from "./services/representative.service";
 import {MyNanoNinjaService} from "./services/mynanoninja.service";
 import {ManageRepresentativesComponent} from "./components/manage-representatives/manage-representatives.component";
 import {NodeService} from "./services/node.service";
-import {LedgerService} from "./ledger.service";
+import {LedgerService} from "./services/ledger.service";
+import {DesktopService} from "./services/desktop.service";
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import {LedgerService} from "./ledger.service";
     MyNanoNinjaService,
     NodeService,
     LedgerService,
+    DesktopService,
   ],
   bootstrap: [AppComponent]
 })

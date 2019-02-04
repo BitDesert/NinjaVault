@@ -22,6 +22,19 @@ export class WebsocketService {
 
   constructor(private appSettings: AppSettingsService) { }
 
+  forceReconnect() {
+    if (this.socket.connected && this.socket.ws) {
+      // Override the onclose event so it doesnt try to reconnect the old instance
+      this.socket.ws.onclose = event => {
+      };
+      this.socket.ws.close();
+      delete this.socket.ws;
+      this.socket.connected = false;
+    }
+
+    setTimeout(() => this.connect(), 250);
+  }
+
   connect() {
     if (this.connected && this.socket) return;
     delete this.socket; // Maybe this will erase old connections
