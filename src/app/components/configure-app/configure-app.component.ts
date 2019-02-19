@@ -143,6 +143,12 @@ export class ConfigureAppComponent implements OnInit {
 
     const matchingPowOption = this.powOptions.find(d => d.value === settings.powSource);
     this.selectedPoWOption = matchingPowOption ? matchingPowOption.value : this.powOptions[0].value;
+
+    this.serverAPI = settings.serverAPI;
+    this.serverNode = settings.serverNode;
+    this.serverWS = settings.serverWS;
+
+    this.minimumReceive = settings.minimumReceive;
   }
 
   async updateBackend() {
@@ -155,11 +161,6 @@ export class ConfigureAppComponent implements OnInit {
       this.api.reloadBackend();
       this.websocket.reconnect();
     }
-    this.serverAPI = settings.serverAPI;
-    this.serverNode = settings.serverNode;
-    this.serverWS = settings.serverWS;
-
-    this.minimumReceive = settings.minimumReceive;
   }
 
   async updateDisplaySettings() {
