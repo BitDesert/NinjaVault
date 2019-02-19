@@ -12,6 +12,11 @@ interface AppSettings {
   lockInactivityMinutes: number;
   powSource: PoWSource;
   backend: string;
+  serverName: string;
+  serverAPI: string | null;
+  serverNode: string | null;
+  serverWS: string | null;
+  minimumReceive: string | null;
 }
 
 @Injectable()
@@ -25,7 +30,12 @@ export class AppSettingsService {
     lockOnClose: 1,
     lockInactivityMinutes: 30,
     powSource: 'best',
-    backend: 'vault-api.mynano.ninja'
+    backend: 'vault-api.mynano.ninja',
+    serverName: 'nanovault',
+    serverAPI: null,
+    serverNode: null,
+    serverWS: null,
+    minimumReceive: null,
   };
 
   constructor() { }
@@ -72,7 +82,12 @@ export class AppSettingsService {
       lockOnClose: 1,
       lockInactivityMinutes: 30,
       powSource: 'best',
-      backend: 'vault-api.mynano.ninja'
+      backend: 'vault-api.mynano.ninja',
+      serverName: 'nanovault',
+      serverNode: null,
+      serverAPI: null,
+      serverWS: null,
+      minimumReceive: null,
     };
   }
 
