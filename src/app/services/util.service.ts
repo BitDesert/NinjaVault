@@ -218,8 +218,18 @@ function getPublicAccountID(accountPublicKeyBytes) {
 }
 
 function getAccountPublicKey(account) {
-  if ((!account.startsWith('nano_1') && !account.startsWith('nano_3')) || account.length !== 64) throw new Error(`Invalid NANO Account`);
-  const account_crop = account.substring(4,64);
+  var account_crop;
+
+  if ((account.startsWith('nano_1') || account.startsWith('nano_3')) && account.length === 65) {
+    account_crop = account.substring(5,65);
+    
+  } else if ((account.startsWith('xrb_1') || account.startsWith('xrb_3')) && account.length === 64) {
+    account_crop = account.substring(4,64);
+  
+  } else {
+    throw new Error(`Invalid NANO Account`);
+  }
+
   const isValid = /^[13456789abcdefghijkmnopqrstuwxyz]+$/.test(account_crop);
   if (!isValid) throw new Error(`Invalid NANO account`);
 
