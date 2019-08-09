@@ -204,7 +204,7 @@
                   <div class="uk-inline uk-width-1-1" *ngIf="showServerConfigs()">
                     <input [(ngModel)]="serverAPI" class="uk-input uk-margin-small-bottom" type="text" placeholder="https://nanovault.io/api/node-api">
                     <span class="uk-text-meta">
-                      This server must be running the <a href="https://github.com/cronoh/nanovault-server" target="_blank">NanoVault Server</a> application, or an API compliant with it.<br>
+                      This server must be running the <a href="https://github.com/cronoh/nanovault-server" target="_blank" rel="noopener noreferrer">NanoVault Server</a> application, or an API compliant with it.<br>
                       Timestamps in the application are dependant on this server's access to them.
                     </span>
                   </div>
@@ -227,7 +227,7 @@
                     <div class="uk-inline uk-width-1-1" *ngIf="showServerConfigs()">
                       <input [(ngModel)]="serverNode" class="uk-input uk-margin-small-bottom" type="text" placeholder="http://125.32.211.54:7076">
                       <span class="uk-text-meta">
-                        This server must be exposing the <a href="https://developers.nano.org/docs/rpc/" target="_blank">Nano RPC</a> to the API server used above.<br>
+                        This server must be exposing the <a href="https://developers.nano.org/docs/rpc/" target="_blank" rel="noopener noreferrer">Nano RPC</a> to the API server used above.<br>
                         Requests will still be sent to the API server, but this node will be used to communicate with the network.
                       </span>
                     </div>
@@ -249,7 +249,7 @@
                   <div class="uk-inline uk-width-1-1" *ngIf="showServerConfigs()">
                     <input [(ngModel)]="serverWS" class="uk-input uk-margin-small-bottom" id="form-horizontal-text2" type="text" placeholder="wss://ws.nanovault.io/">
                     <span class="uk-text-meta">
-                      This server must be running the <a href="https://github.com/cronoh/nanovault-ws" target="_blank">NanoVault Websocket</a> application, or a WebSocket API compliant with it.<br>
+                      This server must be running the <a href="https://github.com/cronoh/nanovault-ws" target="_blank" rel="noopener noreferrer">NanoVault Websocket</a> application, or a WebSocket API compliant with it.<br>
                       <i>Note: Since this server only notifies about new transactions, most of the wallet functions fine without it.</i>
                     </span>
                   </div>
