@@ -7,12 +7,14 @@ import {PriceService} from "./services/price.service";
 import {NotificationService} from "./services/notification.service";
 import {PowService} from "./services/pow.service";
 import {WorkPoolService} from "./services/work-pool.service";
-import {Router} from "@angular/router";
+import {Router, NavigationEnd} from "@angular/router";
 import {RepresentativeService} from "./services/representative.service";
 import {NodeService} from "./services/node.service";
 import Nano from "hw-app-nano";
 import TransportU2F from "@ledgerhq/hw-transport-u2f";
 import {DesktopService} from "./services/desktop.service";
+
+declare let gtag: Function;
 
 @Component({
   selector: 'app-root',
@@ -44,7 +46,15 @@ export class AppComponent implements OnInit {
     private router: Router,
     private workPool: WorkPoolService,
     private desktop: DesktopService,
-    public price: PriceService) { }
+    public price: PriceService) {
+      this.router.events.subscribe(event => {
+         if (event instanceof NavigationEnd) {
+          console.log(event.urlAfterRedirects);
+          (<any>window).gtag('config', 'UA-115902726-5', {'page_path': event.urlAfterRedirects});
+        }
+       }
+    );
+  }
 
   async ngOnInit() {
     this.windowHeight = window.innerHeight;
