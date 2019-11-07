@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'accounts', component: AccountsComponent },
   { path: 'account/:account', component: AccountDetailsComponent },
   { path: 'address-book', component: AddressBookComponent },
+  { path: 'buy-sell', component: BuySellComponent },
   { path: 'configure-wallet', component: ConfigureWalletComponent },
   { path: 'configure-app', component: ConfigureAppComponent },
   { path: 'import-address-book', component: ImportAddressBookComponent },

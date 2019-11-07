@@ -10,6 +10,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {UtilService} from "./services/util.service";
 import {WalletService} from "./services/wallet.service";
 import {ConfigureWalletComponent} from "./components/configure-wallet/configure-wallet.component";
+import {BuySellComponent} from "./components/buy-sell/buy-sell.component";
 import {NotificationService} from "./services/notification.service";
 import {NotificationsComponent} from "./components/notifications/notifications.component";
 import {RaiPipe} from "./pipes/rai.pipe";
@@ -52,6 +53,7 @@ import {DesktopService} from "./services/desktop.service";
     AppComponent,
     WelcomeComponent,
     ConfigureWalletComponent,
+    BuySellComponent,
     NotificationsComponent,
     RaiPipe,
     SqueezePipe,
