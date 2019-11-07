@@ -14,6 +14,7 @@ import {TransactionDetailsComponent} from "./components/transaction-details/tran
 import {ImportWalletComponent} from "./components/import-wallet/import-wallet.component";
 import { ImportAddressBookComponent } from './components/import-address-book/import-address-book.component';
 import {RepresentativesComponent} from "./components/representatives/representatives.component";
+import {BuySellComponent} from "./components/buy-sell/buy-sell.component";
 
 import { environment } from '../environments/environment';
 import {ManageRepresentativesComponent} from "./components/manage-representatives/manage-representatives.component";
