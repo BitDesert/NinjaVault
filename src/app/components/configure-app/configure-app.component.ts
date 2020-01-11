@@ -36,6 +36,7 @@ export class ConfigureAppComponent implements OnInit {
     { name: 'My Nano Ninja', value: 'vault-api.mynano.ninja' },
     { name: 'My Nano Ninja - Beta Network', value: 'vault-api-beta.mynano.ninja' },
     { name: 'NanoVault', value: 'nanovault.io' },
+    { name: 'NanoCrawler', value: 'vault.nanocrawler.cc' },
   ];
   selectedBackend = this.backendOptions[0].value;
 
