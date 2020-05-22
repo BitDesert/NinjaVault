@@ -143,11 +143,11 @@ function getApplicationMenu() {
       submenu: [
         {
           label: 'View GitHub',
-          click () { loadExternal('https://github.com/BitDesert/nanovault') }
+          click () { loadExternal('https://github.com/MyNanoNinja/NinjaVault') }
         },
         {
           label: 'Submit Issue',
-          click () { loadExternal('https://github.com/BitDesert/nanovault/issues/new') }
+          click () { loadExternal('https://github.com/MyNanoNinja/NinjaVault/issues/new') }
         },
         {type: 'separator'},
         {
@@ -156,7 +156,7 @@ function getApplicationMenu() {
         },
         {
           label: 'View Latest Updates',
-          click () { loadExternal('https://github.com/BitDesert/nanovault/releases') }
+          click () { loadExternal('https://github.com/MyNanoNinja/NinjaVault/releases') }
         },
         {type: 'separator'},
         {
