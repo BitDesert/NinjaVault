@@ -75,7 +75,7 @@
     "@types/qrcode": "^0.8.1",
     "angular-cli-ghpages": "^0.5.3",
     "codelyzer": "^4.0.1",
-    "electron": "^1.8.2",
+    "electron": "^7.2.4",
     "electron-builder": "^19.52.1",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
